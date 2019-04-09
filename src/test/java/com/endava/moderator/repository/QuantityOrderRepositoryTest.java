@@ -32,7 +32,7 @@ public class QuantityOrderRepositoryTest {
 
 	@Test
 	@Transactional
-	@Rollback(value = false)
+	@Rollback(value = true)
 	public void testSave() {
 		QuantityOrder quantityOrder = new QuantityOrder();
 		quantityOrder.setServiceId(1);
@@ -45,7 +45,7 @@ public class QuantityOrderRepositoryTest {
 
 	@Test
 	@Transactional
-	@Rollback(value = false)
+	@Rollback(value = true)
 	public void testUpdate() {
 		QuantityOrder quantityOrder = quantityOrderRepository.getOne(10L);
 		assertNull(quantityOrder.getDeliveredAt());

@@ -1,7 +1,8 @@
-package com.endava.moderator.business.cost;
+package com.endava.moderator.business.order;
 
 import java.math.BigDecimal;
 
+import com.endava.moderator.business.IOrderCalculator;
 import com.endava.moderator.model.QuantityOrder;
 
 public class QuantityCalculator implements IOrderCalculator<QuantityOrder> {

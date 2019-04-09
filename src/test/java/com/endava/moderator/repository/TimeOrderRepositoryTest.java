@@ -32,7 +32,7 @@ public class TimeOrderRepositoryTest {
 
 	@Test
 	@Transactional
-	@Rollback(value = false)
+	@Rollback(value = true)
 	public void testSave() {
 		TimeOrder timeOrder = new TimeOrder();
 		timeOrder.setServiceId(1);
@@ -46,7 +46,7 @@ public class TimeOrderRepositoryTest {
 
 	@Test
 	@Transactional
-	@Rollback(value = false)
+	@Rollback(value = true)
 	public void testUpdate() {
 		TimeOrder timeOrder = timeOrderRepository.getOne(11L);
 		assertNull(timeOrder.getDeliveredAt());

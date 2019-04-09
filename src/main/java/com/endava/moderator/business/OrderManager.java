@@ -7,10 +7,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.endava.moderator.business.cost.IOrderCalculator;
-import com.endava.moderator.business.cost.QuantityCalculator;
-import com.endava.moderator.business.cost.RetailCalculator;
-import com.endava.moderator.business.cost.TimeCalculator;
+import com.endava.moderator.business.order.QuantityCalculator;
+import com.endava.moderator.business.order.RetailCalculator;
+import com.endava.moderator.business.order.TimeCalculator;
 import com.endava.moderator.model.IOrder;
 import com.endava.moderator.model.QuantityOrder;
 import com.endava.moderator.model.RetailOrder;

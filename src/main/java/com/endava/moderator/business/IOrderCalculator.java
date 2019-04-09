@@ -1,4 +1,4 @@
-package com.endava.moderator.business.cost;
+package com.endava.moderator.business;
 
 import java.math.BigDecimal;
 

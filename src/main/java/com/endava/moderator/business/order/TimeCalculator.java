@@ -1,8 +1,9 @@
-package com.endava.moderator.business.cost;
+package com.endava.moderator.business.order;
 
 import java.math.BigDecimal;
 import java.time.temporal.ChronoUnit;
 
+import com.endava.moderator.business.IOrderCalculator;
 import com.endava.moderator.model.TimeOrder;
 
 public class TimeCalculator implements IOrderCalculator<TimeOrder> {
