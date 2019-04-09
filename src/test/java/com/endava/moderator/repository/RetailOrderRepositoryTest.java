@@ -32,7 +32,7 @@ public class RetailOrderRepositoryTest {
 
 	@Test
 	@Transactional
-	@Rollback(value = false)
+	@Rollback(value = true)
 	public void testSave() {
 		RetailOrder retailOrder = new RetailOrder();
 		retailOrder.setServiceId(1);
@@ -45,7 +45,7 @@ public class RetailOrderRepositoryTest {
 
 	@Test
 	@Transactional
-	@Rollback(value = false)
+	@Rollback(value = true)
 	public void testUpdate() {
 		RetailOrder retailOrder = retailOrderRepository.getOne(9L);
 		assertNull(retailOrder.getDeliveredAt());

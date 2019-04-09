@@ -31,9 +31,9 @@ public class ServiceRepositoryTest {
 	@Rollback(value = true)
 	public void testSave() {
 		Service service = new Service();
-		service.setName("Livrare Produse Agricole");
-		service.setDescription("Livrare produce agricole de la piata centrala");
-		service.setType("Q");
+		service.setName("Livrare Pizza");
+		service.setDescription("Livrare pizza de la Andy's Pizza");
+		service.setType("R");
 		Service savedService = serviceRepository.save(service);
 		assertTrue(savedService.getId() > 0L);
 	}

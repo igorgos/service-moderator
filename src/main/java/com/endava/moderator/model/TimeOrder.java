@@ -5,18 +5,23 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "orders")
-@SecondaryTable(name = "time_order")
-public class TimeOrder {
+@SecondaryTable(name = "time_orders")
+public class TimeOrder implements IOrder {
 	private Long id;
 	private Integer serviceId;
+	private Service service;
 	private BigDecimal cost;
 	private Date startAt;
 	private Date endAt;
@@ -43,6 +48,24 @@ public class TimeOrder {
 		this.serviceId = serviceId;
 	}
 
+    /* (non-Javadoc)
+	 * @see com.endava.moderator.model.IOrder#getService()
+	 */
+    @Override
+	@ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_id", referencedColumnName = "id", insertable = false, updatable = false, foreignKey=@ForeignKey(name = "FK_order_services"))
+	public Service getService() {
+		return service;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.endava.moderator.model.IOrder#setService(com.endava.moderator.model.Service)
+	 */
+	@Override
+	public void setService(Service service) {
+		this.service = service;
+	}
+
 	@Column(name = "cost")
 	public BigDecimal getCost() {
 		return cost;
@@ -52,7 +75,7 @@ public class TimeOrder {
 		this.cost = cost;
 	}
 
-	@Column(table = "time_order", name = "start_at")
+	@Column(table = "time_orders", name = "start_at")
 	public Date getStartAt() {
 		return startAt;
 	}
@@ -61,7 +84,7 @@ public class TimeOrder {
 		this.startAt = startAt;
 	}
 
-	@Column(table = "time_order", name = "end_at")
+	@Column(table = "time_orders", name = "end_at")
 	public Date getEndAt() {
 		return endAt;
 	}
@@ -70,7 +93,7 @@ public class TimeOrder {
 		this.endAt = endAt;
 	}
 
-	@Column(table = "time_order", name = "requested_at")
+	@Column(table = "time_orders", name = "requested_at")
 	public Date getRequestedAt() {
 		return requestedAt;
 	}
@@ -79,7 +102,7 @@ public class TimeOrder {
 		this.requestedAt = requestedAt;
 	}
 	
-	@Column(table = "time_order", name = "delivered_at")
+	@Column(table = "time_orders", name = "delivered_at")
 	public Date getDeliveredAt() {
 		return deliveredAt;
 	}

@@ -1,5 +1,7 @@
 package com.endava.moderator.repository;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
@@ -13,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.endava.moderator.ServiceModeratorApplication;
+import com.endava.moderator.model.IOrder;
 import com.endava.moderator.model.Order;
 
 @RunWith(SpringRunner.class)
@@ -34,7 +37,15 @@ public class OrderRepositoryTest {
 		Order order = new Order();
 		order.setServiceId(1);
 		order.setCost(BigDecimal.valueOf(200.15));
-		Order savedService = orderRepository.save(order);
+		IOrder savedService = orderRepository.save(order);
 		assertTrue(savedService.getId() > 0L);
+	}
+
+	@Test
+	public void testFindById() {
+		IOrder order = orderRepository.getByIdLazy(1L);
+		assertTrue(order.getId() == 1L);
+		assertNotNull(order.getService());
+		assertEquals("Q", order.getService().getType());
 	}
 }

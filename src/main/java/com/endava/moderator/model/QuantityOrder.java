@@ -5,18 +5,23 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "orders")
-@SecondaryTable(name = "quantity_order")
-public class QuantityOrder {
+@SecondaryTable(name = "quantity_orders")
+public class QuantityOrder implements IOrder {
 	private Long id;
 	private Integer serviceId;
+	private Service service;
 	private BigDecimal cost;
 	private BigDecimal quantity;
 	private Date requestedAt;
@@ -42,6 +47,24 @@ public class QuantityOrder {
 		this.serviceId = serviceId;
 	}
 
+    /* (non-Javadoc)
+	 * @see com.endava.moderator.model.IOrder#getService()
+	 */
+    @Override
+	@ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_id", referencedColumnName = "id", insertable = false, updatable = false, foreignKey=@ForeignKey(name = "FK_order_services"))
+	public Service getService() {
+		return service;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.endava.moderator.model.IOrder#setService(com.endava.moderator.model.Service)
+	 */
+	@Override
+	public void setService(Service service) {
+		this.service = service;
+	}
+
 	@Column(name = "cost")
 	public BigDecimal getCost() {
 		return cost;
@@ -51,7 +74,7 @@ public class QuantityOrder {
 		this.cost = cost;
 	}
 
-	@Column(table = "quantity_order", name = "quantity")
+	@Column(table = "quantity_orders", name = "quantity")
 	public BigDecimal getQuantity() {
 		return quantity;
 	}
@@ -60,7 +83,7 @@ public class QuantityOrder {
 		this.quantity = quantity;
 	}
 	
-	@Column(table = "quantity_order", name = "requested_at")
+	@Column(table = "quantity_orders", name = "requested_at")
 	public Date getRequestedAt() {
 		return requestedAt;
 	}
@@ -69,7 +92,7 @@ public class QuantityOrder {
 		this.requestedAt = requestedAt;
 	}
 	
-	@Column(table = "quantity_order", name = "delivered_at")
+	@Column(table = "quantity_orders", name = "delivered_at")
 	public Date getDeliveredAt() {
 		return deliveredAt;
 	}
