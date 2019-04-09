@@ -10,12 +10,12 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.endava.moderator.CreditSystemApplication;
+import com.endava.moderator.ServiceModeratorApplication;
 import com.endava.moderator.model.Service;
 import com.endava.moderator.repository.ServiceRepository;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {CreditSystemApplication.class})
+@SpringBootTest(classes = {ServiceModeratorApplication.class})
 public class ServiceRepositoryTest {
 	@Autowired
 	private ServiceRepository serviceRepository;
@@ -31,9 +31,9 @@ public class ServiceRepositoryTest {
 	@Rollback(value = true)
 	public void testSave() {
 		Service service = new Service();
-		service.setName("Livrare Pizza");
-		service.setDescription("Livrare de la Andy's pizza");
-		service.setType("R");
+		service.setName("Livrare Produse Agricole");
+		service.setDescription("Livrare produce agricole de la piata centrala");
+		service.setType("Q");
 		Service savedService = serviceRepository.save(service);
 		assertTrue(savedService.getId() > 0L);
 	}

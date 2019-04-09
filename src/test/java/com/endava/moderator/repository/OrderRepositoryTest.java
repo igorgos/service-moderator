@@ -12,11 +12,11 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.endava.moderator.CreditSystemApplication;
+import com.endava.moderator.ServiceModeratorApplication;
 import com.endava.moderator.model.Order;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {CreditSystemApplication.class})
+@SpringBootTest(classes = {ServiceModeratorApplication.class})
 public class OrderRepositoryTest {
 	@Autowired
 	private OrderRepository orderRepository;
