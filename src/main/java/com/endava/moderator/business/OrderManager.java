@@ -7,27 +7,24 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.endava.moderator.business.order.QuantityCalculator;
-import com.endava.moderator.business.order.RetailCalculator;
-import com.endava.moderator.business.order.TimeCalculator;
+import com.endava.moderator.business.order.IOrderCalculator;
 import com.endava.moderator.model.IOrder;
-import com.endava.moderator.model.QuantityOrder;
-import com.endava.moderator.model.RetailOrder;
-import com.endava.moderator.model.TimeOrder;
 import com.endava.moderator.repository.ServiceRepository;
+import com.endava.moderator.utils.OrderCollectionFactory;
+import com.endava.moderator.utils.ServiceException;
 
 @Service
 public class OrderManager {
-	private  Map<Class<? extends IOrder>, IOrderCalculator<? extends IOrder>> calculatorsMap = new HashMap<>();
+	private  Map<String, IOrderCalculator<IOrder>> calculatorsMap = new HashMap<>();
 	
 	public OrderManager() {
-		IOrderCalculator<RetailOrder> retailOrderCalculator = new RetailCalculator();
-		IOrderCalculator<QuantityOrder> quantityOrderCalculator = new QuantityCalculator();
-		IOrderCalculator<TimeOrder> timeOrderCalculator = new TimeCalculator();
-		
-		calculatorsMap.put(retailOrderCalculator.getParameterClass(), retailOrderCalculator);
-		calculatorsMap.put(quantityOrderCalculator.getParameterClass(), quantityOrderCalculator);
-		calculatorsMap.put(timeOrderCalculator.getParameterClass(), timeOrderCalculator);
+		try {
+			calculatorsMap = OrderCollectionFactory.getChargeInstructionMap();
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int i=0;
 	}
 
 	@Autowired
@@ -44,8 +41,7 @@ public class OrderManager {
 	 * @return
 	 */
 	public BigDecimal calculate(IOrder order) {
-		@SuppressWarnings("unchecked")
-		IOrderCalculator<IOrder> orderCalculator = (IOrderCalculator<IOrder>) calculatorsMap.get(order.getClass());
+		IOrderCalculator<IOrder> orderCalculator = (IOrderCalculator<IOrder>) calculatorsMap.get(order.getClass().getName());
 		BigDecimal retValuee = orderCalculator.calculate(order);
 		return retValuee;
 	}
