@@ -43,19 +43,19 @@ public class OrderManagerTest {
 		assertEquals(Integer.valueOf(1), service.getId());
 	}
 	
-	@Test
-	public void testCalculate() {
-		Optional<RetailOrder> retailOrder = retailOrderRepository.findById(2L);
-		BigDecimal cost = orderManager.calculate(retailOrder.get());
-		assertNotNull(cost);
-		assertEquals(BigDecimal.valueOf(92), cost);
-		
-		Optional<TimeOrder> timeOrder = timeOrderRepository.findById(3L);
-		cost = orderManager.calculate(timeOrder.get());
-		assertNotNull(cost);
-		assertEquals(BigDecimal.valueOf(100), cost);
-
-	}
+//	@Test
+//	public void testCalculate() {
+//		Optional<RetailOrder> retailOrder = retailOrderRepository.findById(2L);
+//		BigDecimal cost = orderManager.calculate(retailOrder.get());
+//		assertNotNull(cost);
+//		assertEquals(BigDecimal.valueOf(92), cost);
+//		
+//		Optional<TimeOrder> timeOrder = timeOrderRepository.findById(3L);
+//		cost = orderManager.calculate(timeOrder.get());
+//		assertNotNull(cost);
+//		assertEquals(BigDecimal.valueOf(100), cost);
+//
+//	}
 
 	@Test
 	public void testCalculateNewOrder() {
