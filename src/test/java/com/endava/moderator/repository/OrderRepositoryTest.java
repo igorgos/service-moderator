@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
@@ -21,13 +23,16 @@ import com.endava.moderator.model.Order;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {ServiceModeratorApplication.class})
 public class OrderRepositoryTest {
+	private static Logger logger = LoggerFactory.getLogger(OrderRepositoryTest.class);
+	
 	@Autowired
 	private OrderRepository orderRepository;
 	
 	@Test
 	public void testCount() {
 		long count = orderRepository.count();
-		assertTrue(count == 0L);
+		logger.info("Orders: {}", count);
+		assertTrue(count > 0L);
 	}
 
 	@Test
