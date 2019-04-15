@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:f="http://xmlns.jcp.org/jsf/core"   
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/applayout/pageTemplate.xhtml">
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:event listener="#{workController.init}" type="preRenderComponent" />
+		</f:metadata>
+		
+		<h:form id="form">
+			<p:growl id="msgs" showDetail="true" />
+			
+			<p:dataTable id="services" widgetVar="services" var="work" value="#{workController.works}" editable="true" style="margin-bottom:20px">
+		        <f:facet name="header">
+		            Row Editing with add functionality
+		        </f:facet>
+				<p:ajax event="rowEdit" listener="#{workController.onRowEdit}" update=":form:msgs" />
+				<p:ajax event="rowEditCancel" listener="#{workController.onRowCancel}" update=":form:msgs" />
+				<p:column>
+					<f:facet name="header">Nr.</f:facet>
+					<h:outputText value="#{work.id}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Name</f:facet>
+					<p:cellEditor>
+                		<f:facet name="output"><h:outputText value="#{work.name}" /></f:facet>
+                		<f:facet name="input"><p:inputText value="#{work.name}" style="width:100%" label="Year"/></f:facet>
+            		</p:cellEditor>					
+				</p:column>
+				<p:column>
+					<f:facet name="header">Description</f:facet>
+					<p:cellEditor>
+                		<f:facet name="output"><h:outputText value="#{work.description}" /></f:facet>
+                		<f:facet name="input"><p:inputText value="#{work.description}" style="width:100%" label="Year"/></f:facet>
+            		</p:cellEditor>					
+				</p:column>
+				<p:column style="width:35px">
+					<p:rowEditor />
+				</p:column>
+			</p:dataTable>
+			<div class="ui-g">
+				<div class="ui-g-12">
+					<p:commandButton value="Add new row" process="@this" update=":form:msgs" action="#{workController.onAddNew()}"
+						oncomplete="PF('services').addRow();" styleClass="ui-priority-primary" /> 
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

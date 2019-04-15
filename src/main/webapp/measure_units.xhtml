@@ -1,0 +1,111 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:ui="http://java.sun.com/jsf/facelets"
+     xmlns:h="http://java.sun.com/jsf/html"      
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.org/ui"
+     xmlns:pe="http://primefaces.org/ui/extensions"
+     template="/layout/template_bluesky.xhtml">
+     
+	<ui:define name="content">
+		<style>
+			 .ui-commandlink {font-weight:bbolder; font-size:large;}
+		</style>
+
+		<f:event listener="#{measureUnitController.init}" type="preRenderComponent"/>
+		
+		<div class="wrapper">
+		
+    	<h:form id="measureUnitsForm">
+    		<p:growl id="msgs" showDetail="false" life="2500"/>
+    		<div class="row">
+				<div class="wrapper-header-left col-md-6">
+					<h3 class="admin-h3">
+						<h:outputText value="Units of Measurement" />
+					</h3>
+				</div>
+				<div class="wrapper-header-r col-md-6">
+					<p class="p">
+						<p:commandButton value="Add new" icon="ui-icon-plusthick" action="#{measureUnitController.reset()}" update="measureUnitForm:measureUnitDetails" oncomplete="PF('measureUnitDetails').show();myFunc();" style="margin-bottom: 5px;"/>
+				        <p:remoteCommand name="remoteChangeStatus" action="#{measureUnitController.changeStatus()}" update="@form"/>
+						<p:spacer width="30" height="10" />
+						<p:commandButton value="Exit" icon="" action="index?faces-redirect=true"  style="margin-bottom: 5px;"/>
+			        </p>
+		     	</div>
+	     	</div>
+			<hr/>
+			<p:dataTable id="measureUnitsTable" value="#{measureUnitController.measureUnitList}" var="measureUnit" rowIndexVar="rowIndexVar"
+					paginator="true" paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PageLinks} {LastPageLink} {RowsPerPageDropdown}"
+					rows="10" styleClass="data-table-style" additionalPanel="true"> 
+            	<p:column headerText="#" style="width:24px" resizable="false" exportable="false">
+					<p:outputLabel value="#{rowIndexVar + 1}" style="float:right"/> 
+				</p:column>
+
+                <p:column headerText="Units of Measurement">
+					<p:commandLink update="measureUnitsTable, measureUnitForm:measureUnitDetails" oncomplete="PF('measureUnitDetails').show(); return false;" icon="ui-icon-search" title="View3" ajax="true" style="color: #2B81D4; text-decoration:none;font-weight:bolder; font-size:13px;">
+		                <h:outputText value="#{measureUnit.name}" />
+						<f:setPropertyActionListener target="#{measureUnitController.selectedMeasureUnit}" value="#{measureUnit}"/>
+						<p:resetInput target="measureUnitForm:measureUnitDetails"/>
+					</p:commandLink>
+				</p:column>
+                
+                <p:column headerText="Status" style="text-align: center;">
+					<p:commandButton styleClass="status-button ui-chkbox-box" action="#{measureUnitController.setSelectedMeasureUnit(measureUnit)}" oncomplete="PF('entityActivateDialog').show();"
+						update="entityActivateForm:entityActivatePanel" icon="#{measureUnit.active == true ? 'ui-icon-check' : 'ui-icon-blank'}"
+						title="Disabled #{not empty measureUnit.active ? measureUnit.active : ' - not'}"/>
+				</p:column>
+                
+				<p:column headerText="Action" style="text-align: center;">
+					<p:commandButton value="Delete" icon="" styleClass="smallDelete" update="measureUnitDeleteForm:measureUnitDeleteDetails" oncomplete="PF('measureUnitDeleteDetails').show();" ajax="true" style="margin-bottom: 5px;">
+						<f:setPropertyActionListener target="#{measureUnitController.selectedMeasureUnit}" value="#{measureUnit}"/>
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			
+	     </h:form>
+		</div>	
+	    <h:form id="measureUnitForm">
+			<p:dialog header="Update record" widgetVar="measureUnitDetails" modal="true" dismissable="false" dynamic="true" width="350"  resizable="false" closeOnEscape="true">
+				<p:outputPanel id="measureUnitDetails" style="text-align:center;">
+					<p:message for="measureUnitName" display="icon, text" />
+					<p:panelGrid columns="2" columnClasses="label,value" style="width: 100%;">
+						<h:outputText value="Unit of Measurement" />
+						<p:inputText id="measureUnitName" value="#{measureUnitController.selectedMeasureUnit.name}" required="true" requiredMessage="Customer zone name is required"/>
+					</p:panelGrid>
+					<p:spacer height="5px" width="100%"/>
+					<p:commandButton id="updateMeasureUnit" value="Save" action="#{measureUnitController.updateMeasureUnit}" update="measureUnitsForm:measureUnitsTable, measureUnitsForm:msgs" 
+						oncomplete="if (args &amp;&amp; !args.validationFailed) {PF('measureUnitDetails').hide();}" ajax="true"  icon="ui-icon-check"/>
+
+		     		<p:commandButton id="reset" value="Cancel" onclick="PF('measureUnitDetails').hide(); return false;" update="measureUnitsForm:measureUnitsTable" />
+				</p:outputPanel>
+			</p:dialog>
+		</h:form> 			
+	     
+	     <h:form id="measureUnitDeleteForm">
+			<p:dialog header="Delete record" widgetVar="measureUnitDeleteDetails" modal="true" dismissable="false" dynamic="true" width="350" resizable="false" closeOnEscape="true">
+				<p:outputPanel id="measureUnitDeleteDetails" style="text-align:center;">
+					<h:outputText value="Are you sure to delete: " />
+					<h:outputText value="#{measureUnitController.selectedMeasureUnit.name}"/>
+					<p:spacer height="5px" width="100%"/>
+					<p:commandButton id="deleteMeasureUnit" value="Delete" action="#{measureUnitController.deleteMeasureUnit}" update="measureUnitsForm:measureUnitsTable, measureUnitsForm:msgs" oncomplete="PF('measureUnitDeleteDetails').hide();" ajax="true"/>
+		     		<p:commandButton id="cancel" value="Cancel" onclick="PF('measureUnitDeleteDetails').hide(); return false;"/>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form> 			
+	     
+		<!-- ========================================== Activate/deactivate entity ============================================================ -->
+		<p:dialog header="Update status" widgetVar="entityActivateDialog" modal="true" width="350" height="50" closeOnEscape="true">
+			<h:form id="entityActivateForm">
+				<p:outputPanel id="entityActivatePanel" style="text-align:center;">
+					<h:outputText value="Are you sure to update " />
+					<h:outputText value="#{measureUnitController.selectedMeasureUnit.name}"/>
+					<h:outputText value=" status to: #{measureUnitController.selectedMeasureUnit.active == true ? 'Inactive' : 'Active'} ?" />
+					<p:spacer height="5px" width="100%"/>
+						
+		            <p:commandButton type="button" value="#{measureUnitController.selectedMeasureUnit.active == true ? 'Inactivate' : 'Activate'}" title="Select" onclick="remoteChangeStatus(); PF('entityActivateDialog').hide()"/>
+			     	<p:commandButton type="reset" value="Cancel" onclick="reset(); PF('entityActivateDialog').hide();"/>
+				</p:outputPanel>
+			</h:form>
+		</p:dialog>
+	     
+	</ui:define>      
+</ui:composition>

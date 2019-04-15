@@ -21,7 +21,7 @@ import javax.persistence.Table;
 public class TimeOrder implements IOrder {
 	private Long id;
 	private Integer serviceId;
-	private Service service;
+	private Work service;
 	private BigDecimal cost;
 	private Date startAt;
 	private Date endAt;
@@ -54,7 +54,7 @@ public class TimeOrder implements IOrder {
     @Override
 	@ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id", referencedColumnName = "id", insertable = false, updatable = false, foreignKey=@ForeignKey(name = "FK_order_services"))
-	public Service getService() {
+	public Work getService() {
 		return service;
 	}
 
@@ -62,7 +62,7 @@ public class TimeOrder implements IOrder {
 	 * @see com.endava.moderator.model.IOrder#setService(com.endava.moderator.model.Service)
 	 */
 	@Override
-	public void setService(Service service) {
+	public void setService(Work service) {
 		this.service = service;
 	}
 

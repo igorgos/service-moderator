@@ -12,6 +12,7 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
+import com.endava.moderator.utils.ViewScope;
 import com.sun.faces.config.ConfigureListener;
 
 @SpringBootApplication
@@ -49,8 +50,8 @@ public class ServiceModeratorApplication {
 	}
 
 	@Bean
-	public ServletRegistrationBean facesServletRegistration() {
-		ServletRegistrationBean registration = new ServletRegistrationBean(facesServlet(), "*.jsf");
+	public ServletRegistrationBean<FacesServlet> facesServletRegistration() {
+		ServletRegistrationBean<FacesServlet> registration = new ServletRegistrationBean<>(facesServlet(), "*.jsf");
 		registration.setName("FacesServlet");
 		return registration;
 	}

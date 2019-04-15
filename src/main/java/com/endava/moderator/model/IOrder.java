@@ -12,9 +12,9 @@ public interface IOrder {
 
 	void setServiceId(Integer serviceId);
 
-	Service getService();
+	Work getService();
 
-	void setService(Service service);
+	void setService(Work service);
 
 	BigDecimal getCost();
 

@@ -1,4 +1,4 @@
-package com.endava.moderator.controllers;
+package com.endava.moderator.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

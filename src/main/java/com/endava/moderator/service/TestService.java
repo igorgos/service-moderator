@@ -1,4 +1,4 @@
-package com.endava.moderator;
+package com.endava.moderator.service;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;

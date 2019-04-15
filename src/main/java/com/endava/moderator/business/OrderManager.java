@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.endava.moderator.business.order.IOrderCalculator;
 import com.endava.moderator.model.IOrder;
-import com.endava.moderator.repository.ServiceRepository;
+import com.endava.moderator.repository.WorkRepository;
 import com.endava.moderator.utils.OrderCollectionFactory;
 import com.endava.moderator.utils.ServiceException;
 
@@ -28,9 +28,9 @@ public class OrderManager {
 	}
 
 	@Autowired
-	private ServiceRepository serviceRepository;
+	private WorkRepository serviceRepository;
 	
-	public com.endava.moderator.model.Service getService(Integer id) {
+	public com.endava.moderator.model.Work getService(Integer id) {
 		return serviceRepository.getOne(id);
 	}
 	

@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.endava.moderator.ServiceModeratorApplication;
 import com.endava.moderator.model.RetailOrder;
-import com.endava.moderator.model.Service;
+import com.endava.moderator.model.Work;
 import com.endava.moderator.model.TimeOrder;
 import com.endava.moderator.repository.RetailOrderRepository;
 import com.endava.moderator.repository.TimeOrderRepository;
@@ -37,7 +37,7 @@ public class OrderManagerTest {
 	
 	@Test
 	public void testGetServiceById() {
-		Service service = orderManager.getService(1);	
+		Work service = orderManager.getService(1);	
 		assertNotNull(service);
 		assertEquals(Integer.valueOf(1), service.getId());
 	}

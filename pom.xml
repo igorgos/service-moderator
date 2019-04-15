@@ -7,17 +7,19 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.4.RELEASE</version>
-<!-- 		<version>1.5.2.RELEASE</version> -->
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.endava</groupId>
 	<artifactId>moderator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Service Moderator</name>
-	<description>Demo Service Moderator System</description>
+	<description>Service Moderator System - Demo</description>
 
 	<properties>
 		<java.version>1.8</java.version>
+		<primefaces.version>7.0</primefaces.version>
+		<jsf.version>2.2.7</jsf.version>
+		<rewrite.version>3.4.1.Final</rewrite.version>
 	</properties>
 
 	<dependencies>
@@ -38,36 +40,41 @@
 	    <dependency>
 	      <groupId>com.sun.faces</groupId>
 	      <artifactId>jsf-api</artifactId>
-	      <version>2.2.7</version>
+	      <version>${jsf.version}</version>
 	    </dependency>
 	    <dependency>
 	      <groupId>com.sun.faces</groupId>
 	      <artifactId>jsf-impl</artifactId>
-	      <version>2.2.7</version>
+	      <version>${jsf.version}</version>
 	    </dependency>
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.ocpsoft.rewrite</groupId>
 			<artifactId>rewrite-servlet</artifactId>
-			<version>3.4.1.Final</version>
+			<version>${rewrite.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.ocpsoft.rewrite</groupId>
 			<artifactId>rewrite-integration-faces</artifactId>
-			<version>3.4.1.Final</version>
+			<version>${rewrite.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.ocpsoft.rewrite</groupId>
 			<artifactId>rewrite-config-prettyfaces</artifactId>
-			<version>3.4.1.Final</version>
+			<version>${rewrite.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>6.1</version>
+			<version>${primefaces.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>start</artifactId>
+			<version>1.0.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -86,12 +93,15 @@
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
-<!-- 		<dependency> -->
-<!-- 		    <groupId>org.hsqldb</groupId> -->
-<!-- 		    <artifactId>hsqldb</artifactId> -->
-<!-- 		</dependency> -->
 	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>primefaces-maven-repository</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+		</repository>
+	</repositories>	
 
 	<build>
 		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>

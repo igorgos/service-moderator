@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "services")
-public class Service {
+@Table(name = "works")
+public class Work {
 	private Integer id;
 	private String name;
 	private String description;
@@ -17,7 +17,7 @@ public class Service {
 	
 	@Id
 	@Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	public Integer getId() {
 		return id;
 	}
