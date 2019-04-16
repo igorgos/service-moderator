@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.endava.moderator.model.IOrder;
-import com.endava.moderator.model.Order;
+import com.endava.moderator.model.order.IOrder;
+import com.endava.moderator.model.order.Order;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {

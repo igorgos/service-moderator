@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.endava.moderator.business.order.IOrderCalculator;
-import com.endava.moderator.model.IOrder;
+import com.endava.moderator.model.order.IOrder;
 import com.endava.moderator.repository.WorkRepository;
 import com.endava.moderator.utils.OrderCollectionFactory;
 import com.endava.moderator.utils.ServiceException;

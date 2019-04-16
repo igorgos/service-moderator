@@ -19,46 +19,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.endava.moderator.model.Work;
-import com.endava.moderator.service.WorkService;
+import com.endava.moderator.model.Client;
+import com.endava.moderator.service.ClientService;
 
 @RestController
 @Scope("view")
-public class WorkController {
-	private static final Logger logger = LoggerFactory.getLogger(WorkController.class);
+public class ClientController {
+	private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
 	@Autowired
-	private WorkService workService;
-	private List<Work> works;
+	private ClientService clientService;
+	private List<Client> clients;
 
 	public void init() {
-		if (works == null) {
-			works = workService.findAll();
+		if (clients == null) {
+			clients = clientService.findAll();
 		}
 	}
 
-	public List<Work> getWorks() {
-		return works;
+	public List<Client> getClients() {
+		return clients;
 	}
 
-	public void setWorks(List<Work> works) {
-		this.works = works;
+	public void setClients(List<Client> clients) {
+		this.clients = clients;
 	}
 
 	public void onRowEdit(RowEditEvent event) {
-		Work selectedService = (Work) event.getObject();
-		Work savedService = workService.save(selectedService);
+		Client selectedService = (Client) event.getObject();
+		Client savedService = clientService.save(selectedService);
 		FacesMessage msg = new FacesMessage("Service Edited", savedService.getName());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Edit Cancelled", ((Work) event.getObject()).getName());
+		FacesMessage msg = new FacesMessage("Edit Cancelled", ((Client) event.getObject()).getName());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void onAddNew() {
-		Work newService = new Work();
-		works.add(newService);
+		Client newService = new Client();
+		clients.add(newService);
 		FacesMessage msg = new FacesMessage("New Service added", newService.getName());
 		FacesContext currentInstance = FacesContext.getCurrentInstance();
 		currentInstance.addMessage(null, msg);
@@ -85,6 +85,6 @@ public class WorkController {
 	}
 
 	public void doSomething() {
-		logger.info("Work Controller: {}", new Date());
+		logger.info("Client Controller: {}", new Date());
 	}
 }

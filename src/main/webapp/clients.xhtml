@@ -9,35 +9,35 @@
 
 	<ui:define name="content">
 		<f:metadata>
-			<f:event listener="#{workController.init}" type="preRenderComponent" />
+			<f:event listener="#{clientController.init}" type="preRenderComponent" />
 		</f:metadata>
 		
 		<h:form id="form">
 			<p:growl id="msgs" showDetail="true" />
 			
-			<p:dataTable id="services" widgetVar="services" var="work" value="#{workController.works}" editable="true" 
+			<p:dataTable id="services" widgetVar="services" var="client" value="#{clientController.clients}" editable="true" 
 					style="margin-bottom:20px" styleClass="styleEventosPlanPrestacion">
 		        <f:facet name="header">
 		            Row Editing with add functionality
 		        </f:facet>
-				<p:ajax event="rowEdit" listener="#{workController.onRowEdit}" update=":form:msgs" />
-				<p:ajax event="rowEditCancel" listener="#{workController.onRowCancel}" update=":form:msgs" />
+				<p:ajax event="rowEdit" listener="#{clientController.onRowEdit}" update=":form:msgs" />
+				<p:ajax event="rowEditCancel" listener="#{clientController.onRowCancel}" update=":form:msgs" />
 				<p:column>
 					<f:facet name="header">Nr.</f:facet>
-					<h:outputText value="#{work.id}" />
+					<h:outputText value="#{client.id}" />
 				</p:column>
 				<p:column>
 					<f:facet name="header">Name</f:facet>
 					<p:cellEditor>
-                		<f:facet name="output"><h:outputText value="#{work.name}" /></f:facet>
-                		<f:facet name="input"><p:inputText value="#{work.name}" style="width:100%" label="Year"/></f:facet>
+                		<f:facet name="output"><h:outputText value="#{client.name}" /></f:facet>
+                		<f:facet name="input"><p:inputText value="#{client.name}" style="width:100%" label="Year"/></f:facet>
             		</p:cellEditor>					
 				</p:column>
 				<p:column>
 					<f:facet name="header">Description</f:facet>
 					<p:cellEditor>
-                		<f:facet name="output"><h:outputText value="#{work.description}" /></f:facet>
-                		<f:facet name="input"><p:inputText value="#{work.description}" style="width:100%" label="Year"/></f:facet>
+                		<f:facet name="output"><h:outputText value="#{client.description}" /></f:facet>
+                		<f:facet name="input"><p:inputText value="#{client.description}" style="width:100%" label="Year"/></f:facet>
             		</p:cellEditor>					
 				</p:column>
 				<p:column style="width:35px">
@@ -46,7 +46,7 @@
 			</p:dataTable>
 			<div class="ui-g">
 				<div class="ui-g-12">
-					<p:commandButton value="Add new row" process="@this" update=":form:msgs" action="#{workController.onAddNew()}"
+					<p:commandButton value="Add new row" process="@this" update=":form:msgs" action="#{clientController.onAddNew()}"
 						oncomplete="PF('services').addRow(); jQuery('.ui-datatable-data tr').last().find('span.ui-icon-pencil').each(function(){jQuery(this).click()});"
 						styleClass="ui-priority-primary" /> 
 				</div>

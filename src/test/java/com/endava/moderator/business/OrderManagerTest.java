@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,9 +13,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.endava.moderator.ServiceModeratorApplication;
-import com.endava.moderator.model.RetailOrder;
 import com.endava.moderator.model.Work;
-import com.endava.moderator.model.TimeOrder;
+import com.endava.moderator.model.order.RetailOrder;
+import com.endava.moderator.model.order.TimeOrder;
 import com.endava.moderator.repository.RetailOrderRepository;
 import com.endava.moderator.repository.TimeOrderRepository;
 
@@ -42,19 +43,19 @@ public class OrderManagerTest {
 		assertEquals(Integer.valueOf(1), service.getId());
 	}
 	
-//	@Test
-//	public void testCalculate() {
-//		Optional<RetailOrder> retailOrder = retailOrderRepository.findById(2L);
-//		BigDecimal cost = orderManager.calculate(retailOrder.get());
-//		assertNotNull(cost);
-//		assertEquals(BigDecimal.valueOf(92), cost);
-//		
-//		Optional<TimeOrder> timeOrder = timeOrderRepository.findById(3L);
-//		cost = orderManager.calculate(timeOrder.get());
-//		assertNotNull(cost);
-//		assertEquals(BigDecimal.valueOf(100), cost);
-//
-//	}
+	@Test
+	public void testCalculate() {
+		Optional<RetailOrder> retailOrder = retailOrderRepository.findById(2L);
+		BigDecimal cost = orderManager.calculate(retailOrder.get());
+		assertNotNull(cost);
+		assertEquals(BigDecimal.valueOf(92), cost);
+		
+		Optional<TimeOrder> timeOrder = timeOrderRepository.findById(3L);
+		cost = orderManager.calculate(timeOrder.get());
+		assertNotNull(cost);
+		assertEquals(BigDecimal.valueOf(100), cost);
+
+	}
 
 	@Test
 	public void testCalculateNewOrder() {

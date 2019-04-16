@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.endava.moderator.business.order.IOrderCalculator;
-import com.endava.moderator.model.IOrder;
+import com.endava.moderator.model.order.IOrder;
 
 /**
  * Asigură acces la instrucţiuni.

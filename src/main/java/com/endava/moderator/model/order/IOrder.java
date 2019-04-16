@@ -1,6 +1,8 @@
-package com.endava.moderator.model;
+package com.endava.moderator.model.order;
 
 import java.math.BigDecimal;
+
+import com.endava.moderator.model.Work;
 
 public interface IOrder {
 

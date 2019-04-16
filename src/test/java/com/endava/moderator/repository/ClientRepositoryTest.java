@@ -1,10 +1,6 @@
 package com.endava.moderator.repository;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
-import java.math.BigDecimal;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,21 +13,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.endava.moderator.ServiceModeratorApplication;
-import com.endava.moderator.model.order.IOrder;
-import com.endava.moderator.model.order.Order;
+import com.endava.moderator.model.Client;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {ServiceModeratorApplication.class})
-public class OrderRepositoryTest {
-	private static Logger logger = LoggerFactory.getLogger(OrderRepositoryTest.class);
-	
+public class ClientRepositoryTest {
+	private static final Logger logger = LoggerFactory.getLogger(ClientRepositoryTest.class);
 	@Autowired
-	private OrderRepository orderRepository;
-	
+	private ClientRepository clientRepository;
+
 	@Test
 	public void testCount() {
-		long count = orderRepository.count();
-		logger.info("Orders: {}", count);
+		logger.error("Start: ");
+		long count = clientRepository.count();
+		logger.info("Services: {}", count);
 		assertTrue(count > 0L);
 	}
 
@@ -39,18 +34,10 @@ public class OrderRepositoryTest {
 	@Transactional
 	@Rollback(value = true)
 	public void testSave() {
-		Order order = new Order();
-		order.setServiceId(1);
-		order.setCost(BigDecimal.valueOf(200.15));
-		IOrder savedService = orderRepository.save(order);
+		Client service = new Client();
+		service.setName("Livrare Flori");
+		service.setDescription("Livrare flori de la parcul catedralei");
+		Client savedService = clientRepository.save(service);
 		assertTrue(savedService.getId() > 0L);
-	}
-
-	@Test
-	public void testFindById() {
-		IOrder order = orderRepository.getByIdLazy(1L);
-		assertTrue(order.getId() == 1L);
-		assertNotNull(order.getService());
-		assertEquals("Q", order.getService().getType());
 	}
 }

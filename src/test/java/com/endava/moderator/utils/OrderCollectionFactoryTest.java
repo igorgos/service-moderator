@@ -5,7 +5,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.endava.moderator.business.order.IOrderCalculator;
-import com.endava.moderator.model.IOrder;
+import com.endava.moderator.model.order.IOrder;
 
 public class OrderCollectionFactoryTest {
 	
