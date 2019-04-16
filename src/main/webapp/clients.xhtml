@@ -51,14 +51,47 @@
 					<p:rowEditor />
 				</p:column>
 			</p:dataTable>
-		<!-- ============================================================== -->
-		<p:dialog id="newClient" header="New Client" widgetVar="newClient" dynamic="true">
-				<p:panelGrid columns="2">
-					Name: <h:inputText value="#{clientController.newClient.name}" />
-					Description: <h:inputText value="#{clientController.newClient.description}" />
-				</p:panelGrid>
-				<p:commandButton value="Save" action="#{clientController.addNew()}" update=":form" oncomplete="PF('newClient').hide();" />
-		</p:dialog>
-		</h:form>
+			<div class="ui-g">
+				<div class="ui-g-12">
+					<p:commandButton value="Add new row" process="@this" update=":form:msgs" action="#{clientController.onAddNew()}"
+						oncomplete="PF('services').addRow(); jQuery('.ui-datatable-data tr').last().find('span.ui-icon-pencil').each(function(){jQuery(this).click()});"
+						styleClass="ui-priority-primary" /> 
+				</div>
+			</div>
+			<!-- ============================================================== -->
+			
+			<p:dialog header="Add Invoice" widgetVar="addInvoice" minHeight="40">
+                <table border="1">
+                    <tr>
+                        <td><h:outputText value="Sr. No." /></td>
+                        <td><h:outputText value="Description Of Goods Or Services" /></td>
+                        <td><h:outputText value="HSN Code" /></td>
+                        <td><h:outputText value="Quantity" /></td>
+                        <td><h:outputText value="Rate" /></td>
+                        <td><h:outputText value="Percentage Discount" /></td>
+                        <td><h:outputText value="Amount" /></td>
+                    </tr>
+                    <tr>
+                        <td><p:inputText value="#{invoiceBean.serialNumber}" size="3"
+                                styleClass="Alingment" /></td>
+                        <td><h:inputTextarea
+                                value="#{ipsDetail.descriptionOfGoodsOrService}" cols="45" /></td>
+                        <td><h:inputText value="#{ipsDetail.hsnCode}" size="6"
+                                styleClass="Alingment" /></td>
+                        <td><h:inputText value="#{ipsDetail.quantity}" size="3"
+                                styleClass="Alingment" /></td>
+                        <td><h:inputText value="#{ipsDetail.rate}"
+                                styleClass="Alingment" /></td>
+                        <td><h:inputText value="#{ipsDetail.percentDiscount}"
+                                size="2" styleClass="Alingment" /></td>
+                        <td><h:inputText value="#{invoiceBean.amount}"
+                                styleClass="Alingment" /></td>
+                    </tr>
+                </table>
+                <p:commandButton value="Save New Invoice" action="#{invoiceBean.addRow}"
+                    update="services" process="@this services"
+                    oncomplete="jQuery('.ui-datatable-data tr').last().find('span.ui-icon-pencil').each(function(){jQuery(this).click()});" onclick="PF('addInvoice').hide();" />
+        	</p:dialog>
+    	</h:form>
 	</ui:define>
 </ui:composition>
