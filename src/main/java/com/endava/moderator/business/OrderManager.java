@@ -20,7 +20,7 @@ public class OrderManager {
 	
 	public OrderManager() {
 		try {
-			calculatorsMap = OrderCollectionFactory.getChargeInstructionMap();
+			calculatorsMap = OrderCollectionFactory.getOrderMap();
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			throw new RuntimeException("Cannot instantiate Order manager.");
