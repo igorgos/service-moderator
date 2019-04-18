@@ -34,19 +34,24 @@
 		</dependency>
 
 		<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-	    <dependency>
-	      <groupId>com.sun.faces</groupId>
-	      <artifactId>jsf-api</artifactId>
-	      <version>${jsf.version}</version>
-	    </dependency>
-	    <dependency>
-	      <groupId>com.sun.faces</groupId>
-	      <artifactId>jsf-impl</artifactId>
-	      <version>${jsf.version}</version>
-	    </dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>${jsf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+			<version>${jsf.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.ocpsoft.rewrite</groupId>
 			<artifactId>rewrite-servlet</artifactId>
@@ -87,7 +92,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>

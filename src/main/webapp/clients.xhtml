@@ -17,12 +17,12 @@
 			
 			<div class="ui-g">
 				<div class="ui-g-12">
-					<p:commandButton value="Add client" update="form:services" oncomplete="PF('newClient').show()" />
+					<p:commandButton value="Add client" update="form:clients" oncomplete="PF('newClient').show()" />
 					
 				</div>
 			</div>
             <!-- ============================================================== -->
-			<p:dataTable id="services" widgetVar="services" var="client" value="#{clientController.clients}" editable="true" 
+			<p:dataTable id="clients" widgetVar="clients" var="client" value="#{clientController.clients}" editable="true" 
 					style="margin-bottom:20px" styleClass="styleEventosPlanPrestacion">
 		        <f:facet name="header">
 		            Row Editing with add functionality
