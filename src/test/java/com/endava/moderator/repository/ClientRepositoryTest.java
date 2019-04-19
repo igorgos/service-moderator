@@ -26,18 +26,18 @@ public class ClientRepositoryTest {
 	public void testCount() {
 		logger.error("Start: ");
 		long count = clientRepository.count();
-		logger.info("Services: {}", count);
+		logger.info("Clients: {}", count);
 		assertTrue(count > 0L);
 	}
 
 	@Test
 	@Transactional
-	@Rollback(value = true)
+	@Rollback(value = false)
 	public void testSave() {
-		Client service = new Client();
-		service.setName("Livrare Flori");
-		service.setDescription("Livrare flori de la parcul catedralei");
-		Client savedService = clientRepository.save(service);
-		assertTrue(savedService.getId() > 0L);
+		Client client = new Client();
+		client.setName("Garofița");
+		client.setDescription("Livrare flori de la parcul catedralei");
+		Client savedClient = clientRepository.save(client);
+		assertTrue(savedClient.getId() > 0L);
 	}
 }

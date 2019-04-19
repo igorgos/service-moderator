@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:f="http://xmlns.jcp.org/jsf/core"   
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/applayout/pageTemplate.xhtml">
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:event listener="#{userController.init}" type="preRenderComponent" />
+		</f:metadata>
+		
+		<h:form id="form">
+			<p:growl id="msgs" showDetail="true" />
+			
+			<div class="ui-g">
+				<div class="ui-g-12">
+					<p:commandButton value="Add user" update="form:users" oncomplete="PF('newUser').show()" />
+					
+				</div>
+			</div>
+            <!-- ============================================================== -->
+			<p:dataTable id="users" widgetVar="users" var="user" value="#{userController.users}" editable="true" 
+					style="margin-bottom:20px" styleClass="styleEventosPlanPrestacion">
+		        <f:facet name="header">
+		            Row Editing with add functionality
+		        </f:facet>
+				<p:ajax event="rowEdit" listener="#{userController.onRowEdit}" update=":form:msgs" />
+				<p:ajax event="rowEditCancel" listener="#{userController.onRowCancel}" update=":form:msgs" />
+				<p:column>
+					<f:facet name="header">Nr.</f:facet>
+					<h:outputText value="#{user.id}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">User Name</f:facet>
+					<p:cellEditor>
+                		<f:facet name="output"><h:outputText value="#{user.username}" /></f:facet>
+                		<f:facet name="input"><p:inputText value="#{user.username}" style="width:100%" label="Year"/></f:facet>
+            		</p:cellEditor>					
+				</p:column>
+				<p:column>
+					<f:facet name="header">First Name</f:facet>
+					<p:cellEditor>
+                		<f:facet name="output"><h:outputText value="#{user.firstname}" /></f:facet>
+                		<f:facet name="input"><p:inputText value="#{user.firstname}" style="width:100%" label="Year"/></f:facet>
+            		</p:cellEditor>					
+				</p:column>
+				<p:column>
+					<f:facet name="header">Last Name</f:facet>
+					<p:cellEditor>
+                		<f:facet name="output"><h:outputText value="#{user.lastname}" /></f:facet>
+                		<f:facet name="input"><p:inputText value="#{user.lastname}" style="width:100%" label="Year"/></f:facet>
+            		</p:cellEditor>					
+				</p:column>
+				<p:column style="width:35px">
+					<p:rowEditor />
+				</p:column>
+			</p:dataTable>
+		<!-- ============================================================== -->
+		<p:dialog id="newUser" header="New User" widgetVar="newUser" dynamic="true">
+				<p:panelGrid columns="2">
+					First Name: <h:inputText value="#{userController.newUser.firstname}" />
+					Last Name: <h:inputText value="#{userController.newUser.lastname}" />
+					User Name: <h:inputText value="#{userController.newUser.username}" />
+				</p:panelGrid>
+				<p:commandButton value="Save" action="#{userController.addNew()}" update=":form" oncomplete="PF('newUser').hide();" />
+		</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>
