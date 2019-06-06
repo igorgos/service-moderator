@@ -10,12 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 
 import com.endava.moderator.model.order.Order;
 import com.endava.moderator.service.OrderService;
 
-@RestController
+@Controller
 @Scope("session")
 public class OrderController {
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);

@@ -3,9 +3,9 @@ package com.endava.moderator.controller;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 
-@RestController
+@Controller
 @Scope("view")
 public class HelloWorld {
 

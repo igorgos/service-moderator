@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration>
+
+    <property name="application.home" value="/var/log/moderator"/>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} %5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/logs/moderator.log</file>
+        <append>false</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/logs/moderator.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+         	<maxFileSize>10MB</maxFileSize>    
+		</triggeringPolicy>        
+        <encoder>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} %5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.traning" level="DEBUG"/>
+    <logger name="org.hibernate.SQL" level="debug"/>
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="trace"/>
+    <logger name="com.zaxxer.hikari.pool.HikariPool" level="error"/>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+</configuration>
