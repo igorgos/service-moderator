@@ -15,7 +15,8 @@
 		<h:form id="form">
 			<p:growl id="msgs" showDetail="true" />
 			
-			<p:dataTable id="services" widgetVar="services" var="work" value="#{workController.works}" editable="true" style="margin-bottom:20px">
+			<p:dataTable id="services" widgetVar="services" var="work" value="#{workController.works}" editable="true" 
+					style="margin-bottom:20px" styleClass="styleEventosPlanPrestacion">
 		        <f:facet name="header">
 		            Row Editing with add functionality
 		        </f:facet>
@@ -45,10 +46,12 @@
 			</p:dataTable>
 			<div class="ui-g">
 				<div class="ui-g-12">
-					<p:commandButton value="Add new row" process="@this" update=":form:msgs" action="#{workController.onAddNew()}"
-						oncomplete="PF('services').addRow();" styleClass="ui-priority-primary" /> 
+					<p:commandButton value="Add new row" process="@this" update=":form:msgs :form:services" action="#{workController.onAddNew()}"
+						onclick="PF('services').addRow();"
+						oncomplete="jQuery('.ui-datatable-data tr').last().find('span.ui-icon-pencil').each(function(){jQuery(this).click()});"
+						styleClass="ui-priority-primary" /> 
 				</div>
 			</div>
-		</h:form>
+    	</h:form>
 	</ui:define>
 </ui:composition>

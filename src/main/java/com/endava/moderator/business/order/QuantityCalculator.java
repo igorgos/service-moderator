@@ -2,7 +2,7 @@ package com.endava.moderator.business.order;
 
 import java.math.BigDecimal;
 
-import com.endava.moderator.model.QuantityOrder;
+import com.endava.moderator.model.order.QuantityOrder;
 
 public class QuantityCalculator implements IOrderCalculator<QuantityOrder> {
 	private Class<QuantityOrder> parameterClass = QuantityOrder.class;

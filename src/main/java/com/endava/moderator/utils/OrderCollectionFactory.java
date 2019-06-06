@@ -10,33 +10,33 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.endava.moderator.business.order.IOrderCalculator;
-import com.endava.moderator.model.IOrder;
+import com.endava.moderator.model.order.IOrder;
 
 /**
- * Asigură acces la instrucţiuni.
+ * Asigură acces la clase IOrderCalculator.
  */
 public class OrderCollectionFactory {
-	private static String chargePackageName;
+	private static String orderPackageName;
 	private static Map<String, IOrderCalculator<IOrder>> orderCalculatorMap  = new TreeMap<>();
 
 	static {
 		@SuppressWarnings("rawtypes")
-		Class<IOrderCalculator> chargeInstructionClass = IOrderCalculator.class;
-		chargePackageName = chargeInstructionClass.getPackage().getName();
+		Class<IOrderCalculator> orderCalculatorClass = IOrderCalculator.class;
+		orderPackageName = orderCalculatorClass.getPackage().getName();
 	}
 	
 	/** 
-	 * Citeste clasele de tip instructiune (implementeaza interfata "IInstruction") din package-ul in care se contine clasa AbstractChargeInstruction.<br/>
-	 * @return instanta de tip Map. Keie - ID-ul instructiunii, valoarea - clasa de tip instructiune.
-	 * @throws ServiceException daca apar probleme la instantierea claselor de tip instructiune.
+	 * Citeste clasele de tip IOrderCalculator (implementeaza interfata "IOrderCalculator") din package-ul in care se contine clasa IOrderCalculator.<br/>
+	 * @return instanta de tip Map. Keie - numele plin al clasei, valoarea - clasa de tip IOrderCalculator.
+	 * @throws ServiceException daca apar probleme la instantierea claselor de tip IOrderCalculator.
 	 */
-	public static Map<String, IOrderCalculator<IOrder>> getChargeInstructionMap() throws ServiceException {
+	public static Map<String, IOrderCalculator<IOrder>> getOrderMap() throws ServiceException {
 		if (EmptyDetector.isNotEmpty(orderCalculatorMap)) {
 			return orderCalculatorMap;
 		}
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		assert classLoader != null;
-		String path = chargePackageName.replace('.', '/');
+		String path = orderPackageName.replace('.', '/');
 		Enumeration<URL> resources;
 		try {
 			resources = classLoader.getResources(path);
@@ -50,7 +50,7 @@ public class OrderCollectionFactory {
 		}
 		ArrayList<Class<IOrderCalculator<IOrder>>> classes = new ArrayList<Class<IOrderCalculator<IOrder>>>();
 		for (File directory : dirs) {
-			classes.addAll(getClasses(directory, chargePackageName));
+			classes.addAll(getClasses(directory, orderPackageName));
 		}
 		for (Class<IOrderCalculator<IOrder>> clazz : classes) {
 			try {

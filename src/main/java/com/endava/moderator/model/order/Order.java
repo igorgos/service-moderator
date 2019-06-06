@@ -1,4 +1,4 @@
-package com.endava.moderator.model;
+package com.endava.moderator.model.order;
 
 import java.math.BigDecimal;
 
@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.endava.moderator.model.Work;
 
 @Entity
 @Table(name = "orders")

@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.endava.moderator.ServiceModeratorApplication;
-import com.endava.moderator.model.QuantityOrder;
+import com.endava.moderator.model.order.QuantityOrder;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {ServiceModeratorApplication.class})

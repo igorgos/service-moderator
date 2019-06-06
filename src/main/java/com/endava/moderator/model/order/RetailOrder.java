@@ -1,4 +1,4 @@
-package com.endava.moderator.model;
+package com.endava.moderator.model.order;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -15,22 +15,23 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 
+import com.endava.moderator.model.Work;
+
 @Entity
 @Table(name = "orders")
-@SecondaryTable(name = "time_orders")
-public class TimeOrder implements IOrder {
+@SecondaryTable(name = "retail_orders")
+public class RetailOrder implements IOrder {
 	private Long id;
 	private Integer serviceId;
 	private Work service;
 	private BigDecimal cost;
-	private Date startAt;
-	private Date endAt;
+	private Integer amount;
 	private Date requestedAt;
 	private Date deliveredAt;
 	
 	@Id
-	@Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", updatable = false, nullable = false)
 	public Long getId() {
 		return id;
 	}
@@ -75,25 +76,16 @@ public class TimeOrder implements IOrder {
 		this.cost = cost;
 	}
 
-	@Column(table = "time_orders", name = "start_at")
-	public Date getStartAt() {
-		return startAt;
+	@Column(table = "retail_orders", name = "amount")
+	public Integer getAmount() {
+		return amount;
 	}
-
-	public void setStartAt(Date startAt) {
-		this.startAt = startAt;
+	
+	public void setAmount(Integer amount) {
+		this.amount = amount;
 	}
-
-	@Column(table = "time_orders", name = "end_at")
-	public Date getEndAt() {
-		return endAt;
-	}
-
-	public void setEndAt(Date endAt) {
-		this.endAt = endAt;
-	}
-
-	@Column(table = "time_orders", name = "requested_at")
+	
+	@Column(table = "retail_orders", name = "requested_at")
 	public Date getRequestedAt() {
 		return requestedAt;
 	}
@@ -102,7 +94,7 @@ public class TimeOrder implements IOrder {
 		this.requestedAt = requestedAt;
 	}
 	
-	@Column(table = "time_orders", name = "delivered_at")
+	@Column(table = "retail_orders", name = "delivered_at")
 	public Date getDeliveredAt() {
 		return deliveredAt;
 	}

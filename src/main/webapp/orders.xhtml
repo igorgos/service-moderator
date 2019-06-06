@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:f="http://xmlns.jcp.org/jsf/core"   
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/applayout/pageTemplate.xhtml">
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:event listener="#{clientController.init}" type="preRenderComponent" />
+		</f:metadata>
+		
+		<h:form id="form">
+			<p:growl id="msgs" showDetail="true" />
+			
+			<div class="ui-g">
+				<div class="ui-g-12">
+					<p:commandButton value="Add client" update="form:orders" oncomplete="PF('newOrder').show()" />
+					
+				</div>
+			</div>
+            <!-- ============================================================== -->
+			<p:dataTable id="orders" widgetVar="orders" var="client" value="#{clientController.clients}" editable="true" 
+					style="margin-bottom:20px" styleClass="styleEventosPlanPrestacion">
+		        <f:facet name="header">
+		            Row Editing with add functionality
+		        </f:facet>
+				<p:ajax event="rowEdit" listener="#{clientController.onRowEdit}" update=":form:msgs" />
+				<p:ajax event="rowEditCancel" listener="#{clientController.onRowCancel}" update=":form:msgs" />
+				<p:column>
+					<f:facet name="header">Nr.</f:facet>
+					<h:outputText value="#{client.id}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Name</f:facet>
+					<p:cellEditor>
+                		<f:facet name="output"><h:outputText value="#{client.name}" /></f:facet>
+                		<f:facet name="input"><p:inputText value="#{client.name}" style="width:100%" label="Year"/></f:facet>
+            		</p:cellEditor>					
+				</p:column>
+				<p:column>
+					<f:facet name="header">Description</f:facet>
+					<p:cellEditor>
+                		<f:facet name="output"><h:outputText value="#{client.description}" /></f:facet>
+                		<f:facet name="input"><p:inputText value="#{client.description}" style="width:100%" label="Year"/></f:facet>
+            		</p:cellEditor>					
+				</p:column>
+				<p:column style="width:35px">
+					<p:rowEditor />
+				</p:column>
+			</p:dataTable>
+		<!-- ============================================================== -->
+		<p:dialog id="newOrder" header="New Order" widgetVar="newOrder" dynamic="true">
+				<p:panelGrid columns="2">
+					Name: <h:inputText value="#{clientController.newOrder.name}" />
+					Description: <h:inputText value="#{clientController.newOrder.description}" />
+				</p:panelGrid>
+				<p:commandButton value="Save" action="#{clientController.addNew()}" update=":form" oncomplete="PF('newOrder').hide();" />
+		</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

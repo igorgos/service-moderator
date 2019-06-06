@@ -2,7 +2,7 @@ package com.endava.moderator.business.order;
 
 import java.math.BigDecimal;
 
-import com.endava.moderator.model.RetailOrder;
+import com.endava.moderator.model.order.RetailOrder;
 
 public class RetailCalculator implements IOrderCalculator<RetailOrder> {
 	private Class<RetailOrder> parameterClass = RetailOrder.class;
